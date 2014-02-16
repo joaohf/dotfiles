@@ -82,7 +82,8 @@ fi
 #  non-interactive one is the bash environment used in scripts.
 if [ "$PS1" ]; then
 
-    if [ -x /usr/bin/tput ]; then
+    /
+if [ -x /usr/bin/tput ]; then
       if [ "x`tput kbs`" != "x" ]; then # We can't do this with "dumb" terminal
         stty erase `tput kbs`
       elif [ -x /usr/bin/wc ]; then
@@ -96,14 +97,14 @@ if [ "$PS1" ]; then
 		if [ -e /etc/sysconfig/bash-prompt-xterm ]; then
 			PROMPT_COMMAND=/etc/sysconfig/bash-prompt-xterm
 		else
-	    	PROMPT_COMMAND='echo -ne "\033]0;${USER}@${HOSTNAME%%.*}:${PWD/#$HOME/~}\007"'
+			PROMPT_COMMAND='__git_ps1 "\u@\h:\w" "\\\$ "'	    	
 		fi
 		;;
 	screen)
 		if [ -e /etc/sysconfig/bash-prompt-screen ]; then
 			PROMPT_COMMAND=/etc/sysconfig/bash-prompt-screen
 		else
-		PROMPT_COMMAND='echo -ne "\033_${USER}@${HOSTNAME%%.*}:${PWD/#$HOME/~}\033\\"'
+			PROMPT_COMMAND='__git_ps1 "\u@\h:\w" "\\\$ "'
 		fi
 		;;
 	*)
@@ -191,8 +192,8 @@ alias treeacl='tree -A -C -L 2'
 # 2.3) Text and editor commands
 alias em='emacs -nw'     # No X11 windows
 alias eqq='emacs -nw -Q' # No config and no X11
-export EDITOR='emacs -nw'
-export VISUAL='emacs -nw' 
+export EDITOR='vi'
+export VISUAL='vi' 
 
 # 2.4) grep options
 export GREP_OPTIONS='--color=auto'
@@ -201,27 +202,17 @@ export GREP_COLOR='1;31' # green for matches
 # 2.5) sort options
 # Ensures cross-platform sorting behavior of GNU sort.
 # http://www.gnu.org/software/coreutils/faq/coreutils-faq.html#Sort-does-not-sort-in-normal-order_0021
-unset LANG
-export LC_ALL=POSIX
-
-# 2.6) Install rlwrap if not present
-# http://stackoverflow.com/a/677212
-command -v rlwrap >/dev/null 2>&1 || { echo >&2 "Install rlwrap to use node: sudo apt-get install -y rlwrap";}
-
-# 2.7) node.js and nvm
-# http://nodejs.org/api/repl.html#repl_repl
-alias node="env NODE_NO_READLINE=1 rlwrap node"
-alias node_repl="node -e \"require('repl').start({ignoreUndefined: true})\""
-export NODE_DISABLE_COLORS=1
-if [ -s ~/.nvm/nvm.sh ]; then
-    NVM_DIR=~/.nvm
-    source ~/.nvm/nvm.sh
-    nvm use v0.10.12 &> /dev/null # silence nvm use; needed for rsync
-fi
+#unset LANG
+#export LC_ALL=POSIX
 
 ## ------------------------------
 ## -- 3) User-customized code  --
 ## ------------------------------
 
+source ~/.git-prompt.sh
+
 ## Define any user-specific variables you want here.
 source ~/.bashrc_custom
+
+# Sets the Mail Environment Variable
+MAIL=/var/spool/mail/joaohf && export MAIL
