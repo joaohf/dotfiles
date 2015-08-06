@@ -11,10 +11,17 @@
    ci = commit
    co = checkout
    br = branch
+   lol = log --graph --decorate --pretty=oneline --abbrev-commit
+   lola = log --graph --decorate --pretty=oneline --abbrev-commit --all
 [color]
    ui = auto
    status = auto
    branch = auto
-   whitespace = red reverse
+   whitespace = red reverse 
 [core]
    editor = vim
+
+[credential]
+	helper = cache --timeout=43200
+[merge]
+	tool = meld
