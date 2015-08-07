@@ -8,31 +8,12 @@
 (setq erlang-root-dir "/usr/lib/erlang/")
 (setq exec-path (cons "/usr/lib/erlang/bin" exec-path))
 (require 'erlang-start)
+
 (require 'erlang-flymake)
 
-(add-to-list 'load-path "~/.emacs.d/lisp")
-(require 'flymake)
-(defun flymake-erlang-init ()
-  (let* ((temp-file (flymake-init-create-temp-buffer-copy
-		     'flymake-create-temp-inplace))
-	 (local-file (file-relative-name temp-file
-		(file-name-directory buffer-file-name))))
-    (list "/home/joaohf/bin/check_erl_code.sh" (list local-file))))
 
-(add-to-list 'flymake-allowed-file-name-masks '("\\.erl\\'" flymake-erlang-init))
+(require 'flyspell)
+;;(setq flyspell-issue-message-flg nil)
+(add-hook 'erlang-mode-hook  (lambda () (flyspell-prog-mode)))
 
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(package-archives
-   (quote
-    (("gnu" . "http://elpa.gnu.org/packages/")
-     ("marmalade" . "http://marmalade-repo.org/packages/")))))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )
+(setq ispell-dictionary "english")  
