@@ -22,5 +22,10 @@ REPL, among many other features. See the
 for more details.
 
 git subtree add --prefix .emacs.d/custom/Fill-Column-Indicator https://github.com/alpaker/Fill-Column-Indicator.git master --squash
+git subtree add --prefix .emacs.d/custom/emacs-color-theme-solarized  https://github.com/sellout/emacs-color-theme-solarized.git master --squash
+git subtree add --prefix .emacs.d/custom/better-defaults https://github.com/technomancy/better-defaults.git master --squash
+
+git subtree pull --prefix .emacs.d/custom/emacs-color-theme-solarized  https://github.com/sellout/emacs-color-theme-solarized.git master --squash
 git subtree pull --prefix .emacs.d/custom/Fill-Column-Indicator https://github.com/alpaker/Fill-Column-Indicator.git master --squash
+git subtree pull --prefix .emacs.d/custom/better-defaults https://github.com/technomancy/better-defaults.git master --squash
 
